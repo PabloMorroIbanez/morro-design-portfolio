@@ -50,20 +50,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       onMouseLeave={() => setIsHovering(false)}
     >
       <div className="relative overflow-hidden aspect-video">
-        <HoverCard openDelay={0} closeDelay={0}>
+        {/* The issue is in the HoverCard implementation, fixing it by wrapping it in a proper component tree */}
+        <HoverCard>
           <HoverCardTrigger asChild>
-            <div className="w-full h-full cursor-pointer">
+            <div className="w-full h-full cursor-pointer relative group">
               <img 
                 src={imageUrl} 
                 alt={title} 
                 className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
               />
-              <div className="overlay">
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <a 
                   href={link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="view-project px-4 py-2 bg-white text-neutral-900 rounded-md font-medium flex items-center gap-2"
+                  className="px-4 py-2 bg-white text-neutral-900 rounded-md font-medium flex items-center gap-2"
                 >
                   Ver proyecto <ArrowRight size={16} />
                 </a>
