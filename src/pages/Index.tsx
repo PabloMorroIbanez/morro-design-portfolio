@@ -1,4 +1,3 @@
-
 import { ArrowRight, Mail, Linkedin, ExternalLink } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -98,6 +97,18 @@ const Index = () => {
       ]
     },
     {
+      title: "GreenCare - Plant Care UI App",
+      description: "UI-focused project for a plant care app, with a clean minimalist design to make plant care simple and enjoyable.",
+      tags: ["UI Design", "Mobile", "Personal"],
+      imageUrl: "/lovable-uploads/07b3a8c6-a607-4c7c-8b6c-dff32c0bf56e.png",
+      link: "/greencare",
+      additionalImages: [
+        "/lovable-uploads/1224a4ab-8548-426d-8a66-d3805ca1a0f5.png",
+        "/lovable-uploads/23e884fd-6f19-40bd-b6da-13c13c2d2d9a.png",
+        "/lovable-uploads/70e6bc77-431b-47a7-b09a-7bd4ecde9d5b.png"
+      ]
+    },
+    {
       title: "ARTEO - watchOS App",
       description: "Conceptual app for watchOS focused on improving the art gallery visitor experience with NFC interaction and audio accessibility.",
       tags: ["UI Design", "watchOS", "Concept"],
@@ -107,18 +118,6 @@ const Index = () => {
         "https://images.unsplash.com/photo-1579586337278-3befd40fd17a",
         "https://images.unsplash.com/photo-1593032465175-481ac7f401f0",
         "https://images.unsplash.com/photo-1615648078276-2307839d5414"
-      ]
-    },
-    {
-      title: "Plant Care UI App",
-      description: "UI-focused project for a plant care app, developed as a personal practice from a Briefbox.me brief.",
-      tags: ["UI Design", "Mobile", "Personal"],
-      imageUrl: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c",
-      link: "https://www.behance.net/pablomorro",
-      additionalImages: [
-        "https://images.unsplash.com/photo-1505142468610-359e7d316be0",
-        "https://images.unsplash.com/photo-1508022713622-df2d8fb7b4cd",
-        "https://images.unsplash.com/photo-1531502756766-5e547c298d6a"
       ]
     },
     {

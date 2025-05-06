@@ -69,13 +69,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
         "project-card rounded-xl overflow-hidden bg-neutral-900 flex flex-col h-full",
         "border border-neutral-700 hover:border-blue-500/60 relative group",
         featured ? "lg:col-span-2" : "",
-        isHovering ? "scale-[1.02] z-10" : "scale-100 z-0"
+        "will-change-transform"
       )}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -108,12 +108,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         {/* Floating preview images that follow cursor */}
         {isHovering && projectImages.length > 0 && (
           <motion.div 
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none z-30"
             style={{ 
               left: `${mousePosition.x}px`, 
               top: `${mousePosition.y}px`,
               transform: 'translate(-50%, -120%)',
-              zIndex: 30
+              willChange: 'transform'
             }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -122,19 +122,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           >
             <div className="bg-neutral-900 rounded-lg shadow-xl p-2 w-48 border border-neutral-700">
               <div className="relative overflow-hidden rounded">
-                <motion.div 
+                <motion.img 
                   key={currentImageIndex}
+                  src={projectImages[currentImageIndex]} 
+                  alt={`${title} preview ${currentImageIndex + 1}`}
+                  className="w-full aspect-video object-cover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                >
-                  <img 
-                    src={projectImages[currentImageIndex]} 
-                    alt={`${title} preview ${currentImageIndex + 1}`}
-                    className="w-full aspect-video object-cover" 
-                  />
-                </motion.div>
+                />
                 <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
                   {currentImageIndex + 1}/{projectImages.length}
                 </div>

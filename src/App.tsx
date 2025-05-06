@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Gamification from "./pages/Gamification";
 import NotFound from "./pages/NotFound";
 import AnimatedCursor from "./components/AnimatedCursor";
+import GreenCare from "./pages/GreenCare";
 
 // Create a new query client
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/gamification" element={<Gamification />} />
+          <Route path="/greencare" element={<GreenCare />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

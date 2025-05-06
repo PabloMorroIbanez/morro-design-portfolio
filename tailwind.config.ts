@@ -24,6 +24,7 @@ export default {
 				'inter': ['Inter', 'sans-serif'],
 				'space-grotesk': ['Space Grotesk', 'sans-serif'],
 				'playfair-display': ['Playfair Display', 'serif'],
+				'roboto': ['Roboto', 'sans-serif'], // Added Roboto font
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -97,6 +98,14 @@ export default {
 					500: '#F87171',
 					600: '#EF4444',
 				},
+				// Adding GreenCare color palette
+				green: {
+					50: '#F2FCE2',
+					100: '#E6F7CE',
+					500: '#4CAF50',
+					600: '#3d9140',
+					700: '#2E7D32',
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -124,6 +133,10 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' },
 				},
+				'pulse-light': {
+					'0%, 100%': { opacity: '0.5' },
+					'50%': { opacity: '0.8' },
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -131,6 +144,7 @@ export default {
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
 				'float': 'float 5s ease-in-out infinite',
+				'pulse-light': 'pulse-light 4s ease-in-out infinite',
 			}
 		}
 	},
