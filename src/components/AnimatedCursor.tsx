@@ -20,19 +20,31 @@ const AnimatedCursor: React.FC<CursorProps> = ({ color = "#0EA5E9" }) => {
 
     window.addEventListener("mousemove", mouseMove);
 
-    const linkElements = document.querySelectorAll("a, button");
+    const updateInteractiveElements = () => {
+      const linkElements = document.querySelectorAll("a, button, .interactive-element");
+      
+      linkElements.forEach(link => {
+        link.addEventListener("mouseenter", () => setCursorVariant("link"));
+        link.addEventListener("mouseleave", () => setCursorVariant("default"));
+      });
+    };
     
-    linkElements.forEach(link => {
-      link.addEventListener("mouseenter", () => setCursorVariant("link"));
-      link.addEventListener("mouseleave", () => setCursorVariant("default"));
+    // Initial setup
+    updateInteractiveElements();
+    
+    // Setup mutation observer to detect new elements
+    const observer = new MutationObserver(() => {
+      updateInteractiveElements();
+    });
+    
+    observer.observe(document.body, { 
+      childList: true, 
+      subtree: true 
     });
 
     return () => {
       window.removeEventListener("mousemove", mouseMove);
-      linkElements.forEach(link => {
-        link.removeEventListener("mouseenter", () => setCursorVariant("link"));
-        link.removeEventListener("mouseleave", () => setCursorVariant("default"));
-      });
+      observer.disconnect();
     };
   }, []);
 

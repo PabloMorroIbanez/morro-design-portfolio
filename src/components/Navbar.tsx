@@ -32,10 +32,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { id: "home", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
-    { id: "blog", label: "Blog" },
+    { id: "home", label: "About", path: "/" },
+    { id: "projects", label: "Projects", path: "/" },
+    { id: "blog", label: "Blog", path: "/" },
+    { id: "contact", label: "Contact", path: "/" },
+    { id: "gamification", label: "Prueba Gamificación", path: "/gamification" }
   ];
 
   return (
@@ -53,15 +54,24 @@ const Navbar = () => {
           <ul className="flex space-x-8">
             {navLinks.map((link) => (
               <li key={link.id}>
-                <a 
-                  href={`#${link.id}`}
-                  className={cn(
-                    "text-neutral-600 hover:text-blue-500 transition-colors",
-                    activeSection === link.id && "text-blue-500 font-medium"
-                  )}
-                >
-                  {link.label}
-                </a>
+                {link.path === "/" ? (
+                  <a 
+                    href={`#${link.id}`}
+                    className={cn(
+                      "text-neutral-600 hover:text-blue-500 transition-colors nav-link",
+                      activeSection === link.id && "text-blue-500 font-medium active"
+                    )}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link 
+                    to={link.path}
+                    className="text-neutral-600 hover:text-blue-500 transition-colors nav-link"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
