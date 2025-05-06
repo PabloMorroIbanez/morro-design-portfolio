@@ -6,10 +6,10 @@ interface CursorProps {
   color?: string;
 }
 
-const AnimatedCursor: React.FC<CursorProps> = ({ color = "#0EA5E9" }) => {
+const AnimatedCursor: React.FC<CursorProps> = ({ color = "#3B82F6" }) => { // Changed to blue
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
-
+  
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
       setMousePosition({

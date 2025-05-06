@@ -9,7 +9,11 @@ import Gamification from "./pages/Gamification";
 import NotFound from "./pages/NotFound";
 import AnimatedCursor from "./components/AnimatedCursor";
 
+// Create a new query client
 const queryClient = new QueryClient();
+
+// Add dark mode class to document
+document.documentElement.classList.add('dark');
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
