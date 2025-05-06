@@ -2,8 +2,7 @@
 import { cn } from "@/lib/utils";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { useState, useEffect, useRef } from "react";
 
 interface ProjectCardProps {
   title: string;
@@ -25,6 +24,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   additionalImages = []
 }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
   
   // If no additional images provided, create some defaults
   const projectImages = additionalImages.length > 0 
@@ -35,56 +37,113 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
       ];
   
+  // Image rotation interval
+  useEffect(() => {
+    if (!isHovering) return;
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % projectImages.length
+      );
+    }, 2000); // Change image every 2 seconds
+    
+    return () => clearInterval(interval);
+  }, [isHovering, projectImages.length]);
+  
+  // Mouse position tracking handler
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    
+    // Get card position
+    const rect = cardRef.current.getBoundingClientRect();
+    
+    // Calculate relative position inside the card
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    setMousePosition({ x, y });
+  };
+  
   return (
     <motion.div 
+      ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-100px" }}
       transition={{ duration: 0.6 }}
       className={cn(
         "project-card rounded-xl overflow-hidden bg-white flex flex-col h-full",
-        "border border-neutral-300 shadow-sm hover:shadow-md hover:border-neutral-400",
-        featured ? "lg:col-span-2" : ""
+        "border border-neutral-300 shadow-sm hover:shadow-lg hover:border-neutral-400 relative",
+        featured ? "lg:col-span-2" : "",
+        isHovering ? "scale-[1.02] z-10" : "scale-100 z-0"
       )}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onMouseMove={handleMouseMove}
     >
       <div className="relative overflow-hidden aspect-video">
-        {/* The issue is in the HoverCard implementation, fixing it by wrapping it in a proper component tree */}
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <div className="w-full h-full cursor-pointer relative group">
-              <img 
-                src={imageUrl} 
-                alt={title} 
-                className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <a 
-                  href={link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-white text-neutral-900 rounded-md font-medium flex items-center gap-2"
+        <img 
+          src={imageUrl} 
+          alt={title} 
+          className={cn(
+            "w-full h-full object-cover transition-all duration-500",
+            isHovering ? "scale-105 brightness-[0.85]" : "scale-100"
+          )}
+        />
+        
+        <div className={cn(
+          "absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center",
+          isHovering ? "opacity-100" : "opacity-0"
+        )}>
+          <a 
+            href={link} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-white text-neutral-900 rounded-md font-medium flex items-center gap-2 transform transition-all duration-300"
+          >
+            Ver proyecto <ArrowRight size={16} />
+          </a>
+        </div>
+        
+        {/* Floating preview images that follow cursor */}
+        {isHovering && projectImages.length > 0 && (
+          <motion.div 
+            className="absolute pointer-events-none"
+            style={{ 
+              left: `${mousePosition.x}px`, 
+              top: `${mousePosition.y}px`,
+              transform: 'translate(-50%, -120%)',
+              zIndex: 30
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="bg-white rounded-lg shadow-xl p-2 w-48">
+              <div className="relative overflow-hidden rounded">
+                <motion.div 
+                  key={currentImageIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  Ver proyecto <ArrowRight size={16} />
-                </a>
+                  <img 
+                    src={projectImages[currentImageIndex]} 
+                    alt={`${title} preview ${currentImageIndex + 1}`}
+                    className="w-full aspect-video object-cover" 
+                  />
+                </motion.div>
+                <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+                  {currentImageIndex + 1}/{projectImages.length}
+                </div>
               </div>
             </div>
-          </HoverCardTrigger>
-          <HoverCardContent align="center" side="right" className="w-[280px] p-0 bg-white/95 backdrop-blur border-neutral-300">
-            <div className="grid grid-cols-2 gap-1 p-1">
-              {projectImages.map((img, idx) => (
-                <img 
-                  key={`preview-${idx}`}
-                  src={img} 
-                  alt={`${title} preview ${idx + 1}`} 
-                  className="w-full aspect-video object-cover rounded"
-                />
-              ))}
-            </div>
-          </HoverCardContent>
-        </HoverCard>
+          </motion.div>
+        )}
       </div>
+      
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-space-grotesk font-semibold text-neutral-800">{title}</h3>
