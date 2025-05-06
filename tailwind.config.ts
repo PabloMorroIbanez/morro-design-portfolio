@@ -21,6 +21,9 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
+				'space-grotesk': ['Space Grotesk', 'sans-serif'],
+				'playfair-display': ['Playfair Display', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,7 +69,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Portfolio-specific colors
+				// New color palette
 				neutral: {
 					100: '#FFFFFF',
 					200: '#F6F6F7',
@@ -76,11 +79,23 @@ export default {
 					600: '#555555',
 					700: '#403E43',
 					800: '#333333',
+					900: '#222222',
 				},
 				blue: {
 					100: '#E0F2FF',
 					500: '#0EA5E9',
 					600: '#0284C7',
+					700: '#036096',
+				},
+				teal: {
+					100: '#CCFBF1',
+					500: '#14B8A6',
+					600: '#0D9488',
+				},
+				coral: {
+					100: '#FFE4E0',
+					500: '#F87171',
+					600: '#EF4444',
 				},
 			},
 			borderRadius: {
@@ -105,12 +120,17 @@ export default {
 					'0%': { opacity: '1', transform: 'translateY(0)' },
 					'100%': { opacity: '0', transform: 'translateY(10px)' },
 				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
+				'float': 'float 5s ease-in-out infinite',
 			}
 		}
 	},

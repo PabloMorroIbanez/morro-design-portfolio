@@ -1,6 +1,7 @@
 
 import { cn } from "@/lib/utils";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   title: string;
@@ -20,10 +21,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   featured = false 
 }) => {
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-100px" }}
       className={cn(
-        "group rounded-xl overflow-hidden transition-all duration-300 bg-white flex flex-col h-full",
-        "border border-neutral-300 hover:shadow-md hover:border-neutral-400",
+        "project-card rounded-xl overflow-hidden bg-white flex flex-col h-full",
+        "border border-neutral-300 shadow-sm hover:shadow-md hover:border-neutral-400",
         featured ? "lg:col-span-2" : ""
       )}
     >
@@ -33,10 +38,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
         />
+        <div className="overlay">
+          <a 
+            href={link} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="view-project px-4 py-2 bg-white text-neutral-900 rounded-md font-medium flex items-center gap-2"
+          >
+            Ver proyecto <ArrowRight size={16} />
+          </a>
+        </div>
       </div>
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-semibold text-neutral-800">{title}</h3>
+          <h3 className="text-xl font-space-grotesk font-semibold text-neutral-800">{title}</h3>
           <a 
             href={link} 
             target="_blank" 
@@ -59,7 +74,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
