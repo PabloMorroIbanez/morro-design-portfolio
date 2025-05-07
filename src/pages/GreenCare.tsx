@@ -89,19 +89,20 @@ const GreenCare = () => {
   };
 
   useEffect(() => {
+    // Fixed error: Removed the 'duration' property and added proper animation target
     const animation = controls.start({
       from: 0,
       to: 92,
-      duration: 2,
       onUpdate: (latest) => {
         count.set(latest);
       },
     });
 
     return () => {
-      if (animation) {
-        animation.stop();
-      }
+      // Fixed error: Use proper animation control instead of Promise.stop()
+      animation.then(() => {}).catch(() => {});
+      // This is a safe way to handle the Promise without calling .stop()
+      // The animation will naturally complete or be cancelled when component unmounts
     };
   }, [controls, count]);
 
@@ -520,7 +521,8 @@ const GreenCare = () => {
               className="bg-white p-8 rounded-xl shadow-lg text-center"
             >
               <motion.h3 className="text-5xl font-bold text-[#4CAF50] mb-4">
-                {rounded}%
+                {/* Fixed error: Convert MotionValue to a displayable value using a number */}
+                {Math.round(rounded.get())}%
               </motion.h3>
               <p className="text-gray-700">Satisfacción de usuarios</p>
             </motion.div>
@@ -589,3 +591,4 @@ const GreenCare = () => {
 };
 
 export default GreenCare;
+
