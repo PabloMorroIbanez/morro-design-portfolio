@@ -89,20 +89,27 @@ const GreenCare = () => {
   };
 
   useEffect(() => {
-    // Fixed error: Removed the 'duration' property and added proper animation target
+    // Fixed error: Using the proper animation API format
     const animation = controls.start({
+      opacity: 1,
+      transition: { duration: 2 }
+    });
+    
+    // Separate counter animation using the correct API
+    count.set(0);
+    controls.start(i => ({
       from: 0,
       to: 92,
-      onUpdate: (latest) => {
-        count.set(latest);
+      transition: { duration: 2, ease: "easeInOut" },
+      onComplete: () => {},
+      onUpdate: (v) => {
+        count.set(v);
       },
-    });
+    }));
 
     return () => {
-      // Fixed error: Use proper animation control instead of Promise.stop()
+      // Proper cleanup without using .stop()
       animation.then(() => {}).catch(() => {});
-      // This is a safe way to handle the Promise without calling .stop()
-      // The animation will naturally complete or be cancelled when component unmounts
     };
   }, [controls, count]);
 
@@ -128,7 +135,7 @@ const GreenCare = () => {
       >
         <Link to="/" className="flex items-center gap-2 px-4 py-2 bg-neutral-900/80 text-white rounded-full backdrop-blur-md hover:bg-neutral-800 transition-colors">
           <ArrowLeft size={16} />
-          <span>Volver</span>
+          <span>Back</span>
         </Link>
       </motion.div>
 
@@ -159,10 +166,10 @@ const GreenCare = () => {
             className="mb-6"
           >
             <span className="inline-block px-4 py-1 bg-[#4CAF50]/20 text-[#4CAF50] rounded-full text-sm mb-4">
-              Diseño UI/UX
+              UI/UX Design
             </span>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              GreenCare — <span className="text-[#4CAF50]">UI para el bienestar vegetal</span>
+              GreenCare — <span className="text-[#4CAF50]">UI for plant wellness</span>
             </h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -170,7 +177,16 @@ const GreenCare = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-xl text-gray-600 max-w-2xl mx-auto"
             >
-              Una app para que cuidar plantas sea simple, natural y agradable.
+              An app to make plant care simple, natural and pleasant.
+            </motion.p>
+            
+            {/* New dissolving text effect on hover */}
+            <motion.p 
+              initial={{ opacity: 1 }}
+              whileHover={{ opacity: 0, transition: { duration: 0.5 } }}
+              className="text-lg text-[#4CAF50] mt-4 italic cursor-default"
+            >
+              I design experiences you can feel.
             </motion.p>
           </motion.div>
 
@@ -189,7 +205,7 @@ const GreenCare = () => {
           </motion.div>
           
           <motion.div 
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-full text-center"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -200,7 +216,7 @@ const GreenCare = () => {
             }}
           >
             <div className="flex flex-col items-center">
-              <span className="text-[#4CAF50] text-sm mb-2">Scroll para explorar</span>
+              <span className="text-[#4CAF50] text-sm mb-2">Scroll to explore</span>
               <ArrowLeft size={20} className="text-[#4CAF50] transform rotate-90" />
             </div>
           </motion.div>
@@ -216,17 +232,17 @@ const GreenCare = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-5xl font-bold sticky top-32">
-                ¿Cómo ayudamos a personas ocupadas a cuidar mejor sus plantas?
+                How can we help busy people take better care of their plants?
               </h2>
               <div className="mt-8 space-y-6 text-lg text-gray-700">
                 <p>
-                  Muchas personas desean tener plantas en casa pero se sienten abrumadas por no saber cómo cuidarlas adecuadamente. 
-                  La falta de información clara y accesible sobre el cuidado específico de cada especie lleva a:
+                  Many people want to have plants at home but feel overwhelmed by not knowing how to care for them properly.
+                  The lack of clear and accessible information about the specific care of each species leads to:
                 </p>
                 <ul className="space-y-4 list-disc pl-6">
-                  <li>Frustración cuando las plantas no prosperan</li>
-                  <li>Pérdida de interés y abandono del hobby</li>
-                  <li>Sentimiento de fracaso con la jardinería interior</li>
+                  <li>Frustration when plants don't thrive</li>
+                  <li>Loss of interest and abandonment of the hobby</li>
+                  <li>Feeling of failure with indoor gardening</li>
                 </ul>
               </div>
             </div>
@@ -234,30 +250,30 @@ const GreenCare = () => {
               <div className="bg-[#F2FCE2] p-8 rounded-xl">
                 <img 
                   src="/lovable-uploads/94e74263-1f79-4ff2-886c-c497f9e9aeb8.png" 
-                  alt="Problema del usuario" 
+                  alt="User Problem" 
                   className="w-full h-auto rounded-lg shadow-lg"
                 />
                 
                 <div className="mt-8">
-                  <h3 className="text-xl font-semibold text-[#4CAF50] mb-2">Descubrimientos clave</h3>
+                  <h3 className="text-xl font-semibold text-[#4CAF50] mb-2">Key Findings</h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 bg-[#4CAF50]/20 rounded-full flex items-center justify-center shrink-0">
                         <span className="text-[#4CAF50] font-bold">1</span>
                       </div>
-                      <p>El 78% de los usuarios abandonan el cuidado de plantas por falta de información clara</p>
+                      <p>78% of users give up on plant care due to lack of clear information</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 bg-[#4CAF50]/20 rounded-full flex items-center justify-center shrink-0">
                         <span className="text-[#4CAF50] font-bold">2</span>
                       </div>
-                      <p>Las personas ocupadas necesitan recordatorios simples y guías visuales rápidas</p>
+                      <p>Busy people need simple reminders and quick visual guides</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 bg-[#4CAF50]/20 rounded-full flex items-center justify-center shrink-0">
                         <span className="text-[#4CAF50] font-bold">3</span>
                       </div>
-                      <p>La identificación de plantas y problemas es una necesidad crítica</p>
+                      <p>Plant and problem identification is a critical need</p>
                     </div>
                   </div>
                 </div>
@@ -273,7 +289,7 @@ const GreenCare = () => {
           className="container mx-auto px-6"
           style={{ opacity: processOpacity, y: processY }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Proceso de Diseño</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Design Process</h2>
           
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 relative">
@@ -322,10 +338,10 @@ const GreenCare = () => {
                     <div className="w-12 h-12 bg-[#4CAF50]/20 rounded-full flex items-center justify-center">
                       <span className="text-[#4CAF50] font-bold">01</span>
                     </div>
-                    <h3 className="text-xl font-semibold">Research y Wireframes</h3>
+                    <h3 className="text-xl font-semibold">Research & Wireframes</h3>
                   </div>
                   <p className="text-gray-700">
-                    Comenzamos investigando las necesidades de los usuarios y creando wireframes de baja fidelidad para validar la estructura y flujo de navegación.
+                    We started by researching user needs and creating low-fidelity wireframes to validate the structure and navigation flow.
                   </p>
                 </motion.div>
                 
@@ -340,10 +356,10 @@ const GreenCare = () => {
                     <div className="w-12 h-12 bg-[#4CAF50]/20 rounded-full flex items-center justify-center">
                       <span className="text-[#4CAF50] font-bold">02</span>
                     </div>
-                    <h3 className="text-xl font-semibold">Definición de Estilo</h3>
+                    <h3 className="text-xl font-semibold">Style Definition</h3>
                   </div>
                   <p className="text-gray-700">
-                    Desarrollamos una paleta de colores basada en tonos verdes y neutros, con tipografía Roboto para asegurar legibilidad y una experiencia relajante.
+                    We developed a color palette based on green and neutral tones, with Roboto typography to ensure legibility and a relaxing experience.
                   </p>
                 </motion.div>
                 
@@ -358,10 +374,10 @@ const GreenCare = () => {
                     <div className="w-12 h-12 bg-[#4CAF50]/20 rounded-full flex items-center justify-center">
                       <span className="text-[#4CAF50] font-bold">03</span>
                     </div>
-                    <h3 className="text-xl font-semibold">UI Detallado</h3>
+                    <h3 className="text-xl font-semibold">Detailed UI</h3>
                   </div>
                   <p className="text-gray-700">
-                    Diseñamos cada pantalla con atención al detalle, priorizando la simplicidad y accesibilidad para crear una experiencia intuitiva y agradable.
+                    We designed each screen with attention to detail, prioritizing simplicity and accessibility to create an intuitive and pleasant experience.
                   </p>
                 </motion.div>
                 
@@ -376,10 +392,10 @@ const GreenCare = () => {
                     <div className="w-12 h-12 bg-[#4CAF50]/20 rounded-full flex items-center justify-center">
                       <span className="text-[#4CAF50] font-bold">04</span>
                     </div>
-                    <h3 className="text-xl font-semibold">Iteración y Refinamiento</h3>
+                    <h3 className="text-xl font-semibold">Iteration & Refinement</h3>
                   </div>
                   <p className="text-gray-700">
-                    Refinamos el diseño basándonos en feedback y testeo, mejorando la usabilidad y resolviendo puntos de fricción identificados.
+                    We refined the design based on feedback and testing, improving usability and resolving identified friction points.
                   </p>
                 </motion.div>
               </div>
@@ -394,7 +410,7 @@ const GreenCare = () => {
           className="container mx-auto px-6"
           style={{ opacity: mockupOpacity, y: mockupY }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">El Diseño Final</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">The Final Design</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -407,14 +423,14 @@ const GreenCare = () => {
               >
                 <img 
                   src="/lovable-uploads/1224a4ab-8548-426d-8a66-d3805ca1a0f5.png" 
-                  alt="Mockup del móvil" 
+                  alt="Mobile mockup" 
                   className="w-full h-auto"
                 />
               </motion.div>
             </div>
             
             <div>
-              <h3 className="text-2xl font-bold mb-8 text-[#4CAF50]">Características Principales</h3>
+              <h3 className="text-2xl font-bold mb-8 text-[#4CAF50]">Key Features</h3>
               
               <div className="space-y-6">
                 <motion.div 
@@ -428,9 +444,9 @@ const GreenCare = () => {
                     <span className="text-[#4CAF50] font-bold">✓</span>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold mb-2">Fácil de usar</h4>
+                    <h4 className="text-xl font-semibold mb-2">Easy to use</h4>
                     <p className="text-gray-700">
-                      Interfaz limpia y minimalista que pone el foco en la información relevante, sin distracciones innecesarias.
+                      Clean and minimalist interface that focuses on relevant information, without unnecessary distractions.
                     </p>
                   </div>
                 </motion.div>
@@ -446,9 +462,9 @@ const GreenCare = () => {
                     <span className="text-[#4CAF50] font-bold">✓</span>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold mb-2">Códigos de color claros</h4>
+                    <h4 className="text-xl font-semibold mb-2">Clear color coding</h4>
                     <p className="text-gray-700">
-                      Sistema de colores consistente que ayuda a identificar rápidamente el estado y necesidades de cada planta.
+                      Consistent color system that helps quickly identify the status and needs of each plant.
                     </p>
                   </div>
                 </motion.div>
@@ -464,9 +480,9 @@ const GreenCare = () => {
                     <span className="text-[#4CAF50] font-bold">✓</span>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold mb-2">Sin ruido visual</h4>
+                    <h4 className="text-xl font-semibold mb-2">No visual noise</h4>
                     <p className="text-gray-700">
-                      Jerarquía visual cuidadosamente diseñada para guiar al usuario a través de la información de manera natural.
+                      Carefully designed visual hierarchy to guide the user through information naturally.
                     </p>
                   </div>
                 </motion.div>
@@ -482,9 +498,9 @@ const GreenCare = () => {
                     <span className="text-[#4CAF50] font-bold">✓</span>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold mb-2">Experiencia fluida</h4>
+                    <h4 className="text-xl font-semibold mb-2">Fluid experience</h4>
                     <p className="text-gray-700">
-                      Transiciones suaves y microinteracciones que hacen que la navegación sea natural y agradable.
+                      Smooth transitions and microinteractions that make navigation natural and enjoyable.
                     </p>
                   </div>
                 </motion.div>
@@ -497,7 +513,7 @@ const GreenCare = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#4CAF50] hover:bg-[#3d9140] text-white rounded-md transition-colors"
                 >
-                  Ver proyecto completo <ArrowUpRight size={18} />
+                  See full project <ArrowUpRight size={18} />
                 </a>
               </div>
             </div>
@@ -511,7 +527,7 @@ const GreenCare = () => {
           className="container mx-auto px-6"
           style={{ opacity: resultsOpacity, y: resultsY }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Resultados</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Results</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             <motion.div 
@@ -521,10 +537,9 @@ const GreenCare = () => {
               className="bg-white p-8 rounded-xl shadow-lg text-center"
             >
               <motion.h3 className="text-5xl font-bold text-[#4CAF50] mb-4">
-                {/* Fixed error: Convert MotionValue to a displayable value using a number */}
                 {Math.round(rounded.get())}%
               </motion.h3>
-              <p className="text-gray-700">Satisfacción de usuarios</p>
+              <p className="text-gray-700">User satisfaction</p>
             </motion.div>
             
             <motion.div 
@@ -535,7 +550,7 @@ const GreenCare = () => {
               className="bg-white p-8 rounded-xl shadow-lg text-center"
             >
               <h3 className="text-5xl font-bold text-[#4CAF50] mb-4">85%</h3>
-              <p className="text-gray-700">Reducción en abandono de plantas</p>
+              <p className="text-gray-700">Reduction in plant abandonment</p>
             </motion.div>
             
             <motion.div 
@@ -546,7 +561,7 @@ const GreenCare = () => {
               className="bg-white p-8 rounded-xl shadow-lg text-center"
             >
               <h3 className="text-5xl font-bold text-[#4CAF50] mb-4">4.8</h3>
-              <p className="text-gray-700">Rating en AppStore</p>
+              <p className="text-gray-700">AppStore Rating</p>
             </motion.div>
           </div>
           
@@ -554,7 +569,7 @@ const GreenCare = () => {
             <div className="flex items-center justify-center mb-12">
               <img 
                 src="/lovable-uploads/70e6bc77-431b-47a7-b09a-7bd4ecde9d5b.png" 
-                alt="Todas las pantallas de GreenCare" 
+                alt="All GreenCare screens" 
                 className="w-full max-w-3xl h-auto rounded-xl shadow-xl"
               />
             </div>
@@ -566,10 +581,10 @@ const GreenCare = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               <h3 className="text-3xl font-bold text-[#4CAF50] mb-6">
-                Simplicidad, naturaleza, accesibilidad — eso es GreenCare.
+                Simplicity, nature, accessibility — that's GreenCare.
               </h3>
               <p className="text-xl text-gray-700">
-                Un proyecto de UI que demuestra que el buen diseño no tiene por qué ser complejo para ser efectivo.
+                A UI project that demonstrates good design doesn't have to be complex to be effective.
               </p>
               
               <div className="mt-12">
@@ -577,7 +592,7 @@ const GreenCare = () => {
                   to="/"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 hover:bg-neutral-800 text-white rounded-md transition-colors"
                 >
-                  Volver a proyectos <ArrowLeft size={18} />
+                  Back to projects <ArrowLeft size={18} />
                 </Link>
               </div>
             </motion.div>
@@ -591,4 +606,3 @@ const GreenCare = () => {
 };
 
 export default GreenCare;
-

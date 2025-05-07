@@ -67,3 +67,14 @@
 .ease-out-expo {
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+/* Text dissolve effect */
+@keyframes dissolve {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.dissolve-text {
+  animation: dissolve 2s ease-in-out;
+}
