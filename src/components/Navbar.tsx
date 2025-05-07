@@ -38,11 +38,12 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { id: "home", label: "About", path: "/" },
+    { id: "home", label: "Home", path: "/" },
+    { id: "about", label: "About", path: "/" },
+    { id: "experience", label: "Experience", path: "/" },
     { id: "projects", label: "Projects", path: "/" },
-    { id: "blog", label: "Blog", path: "/" },
     { id: "contact", label: "Contact", path: "/" },
-    { id: "gamification", label: "Prueba Gamificación", path: "/gamification" }
+    { id: "gamification", label: "Gamification", path: "/gamification" }
   ];
 
   return (

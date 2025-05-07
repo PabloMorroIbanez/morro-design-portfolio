@@ -1,4 +1,3 @@
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -77,4 +76,9 @@
 
 .dissolve-text {
   animation: dissolve 2s ease-in-out;
+}
+
+.dissolve-text:hover {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }

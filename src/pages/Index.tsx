@@ -7,10 +7,16 @@ import { cn } from "@/lib/utils";
 import { staggerContainer, fadeIn } from "@/lib/animation-utils";
 import AnimatedCursor from "@/components/AnimatedCursor";
 import { ArrowUpRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ProjectCard from "@/components/ProjectCard";
+import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   const aboutSection = useRef(null);
   const projectsSection = useRef(null);
+  const experienceSection = useRef(null);
+  const contactSection = useRef(null);
 
   const { scrollYProgress: aboutProgress } = useScroll({
     target: aboutSection,
@@ -22,18 +28,79 @@ const Index = () => {
     offset: ["start end", "end end"],
   });
 
+  const { scrollYProgress: experienceProgress } = useScroll({
+    target: experienceSection,
+    offset: ["start end", "end end"],
+  });
+
   const aboutScale = useTransform(aboutProgress, [0, 1], [0.75, 1]);
   const projectsScale = useTransform(projectsProgress, [0, 1], [0.75, 1]);
+  const experienceScale = useTransform(experienceProgress, [0, 1], [0.75, 1]);
+
+  const projects = [
+    {
+      title: "GreenCare",
+      description: "UI design for plant wellness.",
+      tags: ["UI/UX", "Mobile App", "Design"],
+      imageUrl: "/lovable-uploads/07b3a8c6-a607-4c7c-8b6c-dff32c0bf56e.png",
+      link: "/greencare",
+      featured: true,
+    },
+    {
+      title: "FinanceTracker",
+      description: "Personal finance management dashboard.",
+      tags: ["Dashboard", "Web App", "UI/UX"],
+      imageUrl: "/lovable-uploads/94e74263-1f79-4ff2-886c-c497f9e9aeb8.png",
+      link: "#",
+    },
+    {
+      title: "TravelJournal",
+      description: "Travel experience sharing platform.",
+      tags: ["Social", "Mobile App", "UI/UX"],
+      imageUrl: "/lovable-uploads/23e884fd-6f19-40bd-b6da-13c13c2d2d9a.png",
+      link: "#",
+    },
+    {
+      title: "EcoShop",
+      description: "Sustainable products e-commerce platform.",
+      tags: ["E-commerce", "Web Design", "UI/UX"],
+      imageUrl: "/lovable-uploads/70e6bc77-431b-47a7-b09a-7bd4ecde9d5b.png",
+      link: "#",
+    }
+  ];
+
+  const experiences = [
+    {
+      position: "Senior UX/UI Designer",
+      company: "TechVision",
+      duration: "2020 - Present",
+      description: "Leading UX/UI design for web and mobile applications, focusing on user-centered design processes."
+    },
+    {
+      position: "UI Designer",
+      company: "CreativeMinds",
+      duration: "2018 - 2020",
+      description: "Designed interfaces for various client projects across multiple industries."
+    },
+    {
+      position: "Junior Designer",
+      company: "DigitalSolutions",
+      duration: "2016 - 2018",
+      description: "Collaborated with senior designers on UI projects for web and mobile platforms."
+    }
+  ];
 
   return (
     <div className="bg-zinc-900 text-white overflow-hidden">
       <AnimatedCursor />
+      <Navbar />
       <motion.div
         variants={staggerContainer(0.3, 0.3)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
         className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-32 pt-40 md:pt-60 lg:pt-32"
+        id="home"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -42,11 +109,16 @@ const Index = () => {
           />
         </div>
         <div className="relative z-10">
-          <div className="mb-8 flex items-center gap-3">
+          <div className="mb-8 flex items-center gap-6">
             <h1 className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
               Pablo Morro
             </h1>
             <span className="h-5 w-5 text-blue-300">✨</span>
+            <img 
+              src="/lovable-uploads/f1922c7d-2322-4d42-bf6f-bff02bed0446.png" 
+              alt="Profile" 
+              className="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
+            />
           </div>
           <div className="flex flex-col gap-3">
             <span className="text-lg text-zinc-400">
@@ -74,7 +146,7 @@ const Index = () => {
             
             {/* Dissolving text effect */}
             <div className="mt-8">
-              <p className="dissolve-text text-2xl font-medium text-white">
+              <p className="dissolve-text text-2xl font-medium text-white hover:opacity-0 hover:transition-opacity duration-500">
                 I design experiences you can feel.
               </p>
             </div>
@@ -84,9 +156,10 @@ const Index = () => {
 
       {/* About Section */}
       <motion.section
+        id="about"
         ref={aboutSection}
         style={{ scale: aboutScale }}
-        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-32"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -97,37 +170,113 @@ const Index = () => {
         <div className="relative z-10 flex h-full items-center justify-center">
           <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex flex-col gap-5">
-              <h2 className="section-title">About me</h2>
+              <h2 className="text-3xl font-bold mb-4">About me</h2>
               <p className="text-xl text-zinc-400">
                 I'm a UX/UI designer and frontend developer with a passion for
                 creating user-centered digital experiences.
               </p>
               <p className="text-xl text-zinc-400">
-                I'm always looking for new challenges and opportunities to
-                learn and grow.
+                With over 6 years of experience in the industry, I've worked with clients
+                across various sectors including technology, healthcare, and e-commerce.
+              </p>
+              <p className="text-xl text-zinc-400">
+                I believe in creating designs that are not only visually appealing but
+                also functional and accessible to all users.
               </p>
             </div>
             <div className="relative">
               <img
                 src="/me.png"
                 alt="Pablo Morro"
-                className="rounded-xl object-cover"
+                className="rounded-xl object-cover hover:opacity-80 transition-opacity duration-300"
               />
             </div>
           </div>
         </div>
         
         {/* Scroll text - positioned better */}
-        <div className="absolute bottom-20 left-0 w-full text-center">
+        <div className="w-full text-center mt-10">
           <p className="text-zinc-400">Scroll to explore</p>
+        </div>
+      </motion.section>
+
+      {/* Experience Section */}
+      <motion.section
+        id="experience"
+        ref={experienceSection}
+        style={{ scale: experienceScale }}
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+      >
+        <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
+          <div
+            className="absolute left-[calc(50%-15rem)] top-1/2 h-[31.25rem] w-[31.25rem] -translate-y-1/2 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 opacity-30 blur-3xl"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="relative z-10">
+          <h2 className="text-3xl font-bold mb-12">Experience</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-12">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="border-l-2 border-blue-500 pl-6 relative"
+                >
+                  <div className="absolute w-4 h-4 bg-blue-500 rounded-full -left-[9px] top-0" />
+                  <h3 className="text-xl font-semibold">{exp.position}</h3>
+                  <div className="flex justify-between text-sm text-zinc-400 mb-2">
+                    <span>{exp.company}</span>
+                    <span>{exp.duration}</span>
+                  </div>
+                  <p className="text-zinc-300">{exp.description}</p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-zinc-800/50 backdrop-blur-sm p-6 rounded-xl border border-zinc-700"
+              >
+                <h3 className="text-xl font-semibold mb-4">Skills</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-blue-400">Design</h4>
+                    <ul className="space-y-1 text-zinc-300">
+                      <li>UI/UX Design</li>
+                      <li>Wireframing</li>
+                      <li>Prototyping</li>
+                      <li>User Research</li>
+                      <li>Visual Design</li>
+                    </ul>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-blue-400">Development</h4>
+                    <ul className="space-y-1 text-zinc-300">
+                      <li>HTML/CSS</li>
+                      <li>JavaScript/React</li>
+                      <li>TypeScript</li>
+                      <li>Responsive Design</li>
+                      <li>Tailwind CSS</li>
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </motion.section>
 
       {/* Projects Section */}
       <motion.section
+        id="projects"
         ref={projectsSection}
         style={{ scale: projectsScale }}
-        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-32"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -135,37 +284,106 @@ const Index = () => {
             aria-hidden="true"
           />
         </div>
-        <div className="relative z-10 flex h-full items-center justify-center">
-          <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="flex flex-col gap-5">
-              <h2 className="section-title">Projects</h2>
-              <p className="text-xl text-zinc-400">
-                Here are some of my favorite projects.
-              </p>
+        <div className="relative z-10">
+          <h2 className="text-3xl font-bold mb-12">Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={index}
+                title={project.title}
+                description={project.description}
+                tags={project.tags}
+                imageUrl={project.imageUrl}
+                link={project.link}
+                featured={project.featured}
+              />
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        ref={contactSection}
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+      >
+        <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
+          <div
+            className="absolute left-[calc(50%-15rem)] top-1/2 h-[31.25rem] w-[31.25rem] -translate-y-1/2 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 opacity-30 blur-3xl"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl font-bold mb-4">Let's Connect</h2>
+            <p className="text-zinc-400">
+              Feel free to reach out for collaborations, opportunities or just a friendly chat.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+              <ContactForm />
             </div>
-            <div className="relative">
-              <div className="grid grid-cols-1 gap-5">
-                <Link
-                  to="/greencare"
-                  className="group relative overflow-hidden rounded-xl border border-zinc-800 transition-all hover:border-zinc-700"
-                >
-                  <img
-                    src="/lovable-uploads/07b3a8c6-a607-4c7c-8b6c-dff32c0bf56e.png"
-                    alt="GreenCare"
-                    className="object-cover transition-all duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute bottom-0 left-0 w-full p-5">
-                    <h3 className="text-xl font-bold">GreenCare</h3>
-                    <p className="text-sm text-zinc-400">
-                      UI design for plant wellness.
-                    </p>
+            <div className="bg-zinc-800/50 backdrop-blur-sm p-8 rounded-xl border border-zinc-700">
+              <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-500/20 p-3 rounded-full">
+                    <ArrowUpRight className="h-5 w-5 text-blue-400" />
                   </div>
-                </Link>
+                  <div>
+                    <p className="text-sm text-zinc-400">Email</p>
+                    <p className="text-zinc-200">pablomorrodesign@gmail.com</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-500/20 p-3 rounded-full">
+                    <ArrowUpRight className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-zinc-400">Based in</p>
+                    <p className="text-zinc-200">Barcelona, Spain</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="font-medium text-zinc-300 mb-4">Connect on social media</h4>
+                <div className="flex gap-4">
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-zinc-700 p-3 rounded-full hover:bg-blue-500 transition-colors"
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </a>
+                  <a 
+                    href="https://twitter.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-zinc-700 p-3 rounded-full hover:bg-blue-500 transition-colors"
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </a>
+                  <a 
+                    href="https://instagram.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-zinc-700 p-3 rounded-full hover:bg-blue-500 transition-colors"
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
+
+      <Footer />
     </div>
   );
 };
