@@ -1,11 +1,10 @@
+
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import { SparklesIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
 
 import { cn } from "@/lib/utils";
-import { staggerContainer, textVariant } from "@/lib/animation-utils";
+import { staggerContainer, fadeIn } from "@/lib/animation-utils";
 import AnimatedCursor from "@/components/AnimatedCursor";
 import { ArrowUpRight } from "lucide-react";
 
@@ -25,16 +24,6 @@ const Index = () => {
 
   const aboutScale = useTransform(aboutProgress, [0, 1], [0.75, 1]);
   const projectsScale = useTransform(projectsProgress, [0, 1], [0.75, 1]);
-
-  const textContainer = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: (i: number) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 * i },
-    }),
-  };
 
   return (
     <div className="bg-zinc-900 text-white overflow-hidden">
@@ -57,7 +46,7 @@ const Index = () => {
             <h1 className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
               Pablo Morro
             </h1>
-            <SparklesIcon className="h-5 w-5 text-blue-300" />
+            <span className="h-5 w-5 text-blue-300">✨</span>
           </div>
           <div className="flex flex-col gap-3">
             <span className="text-lg text-zinc-400">
@@ -81,6 +70,13 @@ const Index = () => {
                   Contact me
                 </span>
               </Link>
+            </div>
+            
+            {/* Dissolving text effect */}
+            <div className="mt-8">
+              <p className="dissolve-text text-2xl font-medium text-white">
+                I design experiences you can feel.
+              </p>
             </div>
           </div>
         </div>
@@ -119,6 +115,11 @@ const Index = () => {
               />
             </div>
           </div>
+        </div>
+        
+        {/* Scroll text - positioned better */}
+        <div className="absolute bottom-20 left-0 w-full text-center">
+          <p className="text-zinc-400">Scroll to explore</p>
         </div>
       </motion.section>
 
