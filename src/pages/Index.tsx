@@ -90,7 +90,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="bg-zinc-900 text-white overflow-hidden">
+    <div className="bg-zinc-900 text-zinc-100 overflow-hidden">
       <Navbar />
       
       {/* Home Section */}
@@ -99,7 +99,7 @@ const Index = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
-        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-20 pt-32"
+        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-20 pt-24"
         id="home"
       >
         <MagneticDots />
@@ -137,9 +137,9 @@ const Index = () => {
                 </Link>
               </div>
               
-              {/* Dissolving text effect */}
+              {/* Text with no dissolve effect */}
               <div className="mt-8">
-                <p className="dissolve-text text-2xl font-medium text-white hover:opacity-0 hover:transition-opacity duration-500">
+                <p className="text-2xl font-medium text-white">
                   I design experiences you can feel.
                 </p>
               </div>
@@ -184,7 +184,7 @@ const Index = () => {
         id="about"
         ref={aboutSection}
         style={{ scale: aboutScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -196,15 +196,15 @@ const Index = () => {
           <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex flex-col gap-5">
               <h2 className="text-3xl font-bold mb-4">About me</h2>
-              <p className="text-xl text-zinc-400">
+              <p className="text-xl text-zinc-100">
                 I'm a UX/UI designer and frontend developer with a passion for
                 creating user-centered digital experiences.
               </p>
-              <p className="text-xl text-zinc-400">
+              <p className="text-xl text-zinc-100">
                 With over 6 years of experience in the industry, I've worked with clients
                 across various sectors including technology, healthcare, and e-commerce.
               </p>
-              <p className="text-xl text-zinc-400">
+              <p className="text-xl text-zinc-100">
                 I believe in creating designs that are not only visually appealing but
                 also functional and accessible to all users.
               </p>
@@ -218,11 +218,6 @@ const Index = () => {
             </div>
           </div>
         </div>
-        
-        {/* Scroll text - positioned better */}
-        <div className="w-full text-center mt-10">
-          <p className="text-zinc-400">Scroll to explore</p>
-        </div>
       </motion.section>
 
       {/* Experience Section */}
@@ -230,7 +225,7 @@ const Index = () => {
         id="experience"
         ref={experienceSection}
         style={{ scale: experienceScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -256,7 +251,7 @@ const Index = () => {
                     <span>{exp.company}</span>
                     <span>{exp.duration}</span>
                   </div>
-                  <p className="text-zinc-300">{exp.description}</p>
+                  <p className="text-zinc-100">{exp.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -271,7 +266,7 @@ const Index = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <h4 className="font-medium text-blue-400">Design</h4>
-                    <ul className="space-y-1 text-zinc-300">
+                    <ul className="space-y-1 text-zinc-100">
                       <li>UI/UX Design</li>
                       <li>Wireframing</li>
                       <li>Prototyping</li>
@@ -281,7 +276,7 @@ const Index = () => {
                   </div>
                   <div className="space-y-2">
                     <h4 className="font-medium text-blue-400">Development</h4>
-                    <ul className="space-y-1 text-zinc-300">
+                    <ul className="space-y-1 text-zinc-100">
                       <li>HTML/CSS</li>
                       <li>JavaScript/React</li>
                       <li>TypeScript</li>
@@ -301,7 +296,7 @@ const Index = () => {
         id="projects"
         ref={projectsSection}
         style={{ scale: projectsScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -331,7 +326,7 @@ const Index = () => {
       <section
         id="contact"
         ref={contactSection}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-20"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div

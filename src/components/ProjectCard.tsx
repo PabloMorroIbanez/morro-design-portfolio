@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 interface ProjectCardProps {
   title: string;
@@ -20,49 +20,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   tags, 
   imageUrl, 
   link,
-  featured = false,
-  additionalImages = []
+  featured = false
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
-  
-  // If no additional images provided, create some defaults
-  const projectImages = additionalImages.length > 0 
-    ? additionalImages 
-    : [
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
-      ];
-  
-  // Image rotation interval
-  useEffect(() => {
-    if (!isHovering) return;
-    
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % projectImages.length
-      );
-    }, 2000); // Change image every 2 seconds
-    
-    return () => clearInterval(interval);
-  }, [isHovering, projectImages.length]);
-  
-  // Mouse position tracking handler
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    
-    // Get card position
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    // Calculate relative position inside the card
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    setMousePosition({ x, y });
-  };
   
   return (
     <motion.div 
@@ -79,7 +40,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       )}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      onMouseMove={handleMouseMove}
     >
       <div className="relative overflow-hidden aspect-video">
         <img 
@@ -104,41 +64,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             Ver proyecto <ArrowRight size={16} />
           </a>
         </div>
-        
-        {/* Floating preview images that follow cursor */}
-        {isHovering && projectImages.length > 0 && (
-          <motion.div 
-            className="absolute pointer-events-none z-30"
-            style={{ 
-              left: `${mousePosition.x}px`, 
-              top: `${mousePosition.y}px`,
-              transform: 'translate(-50%, -120%)',
-              willChange: 'transform'
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="bg-neutral-900 rounded-lg shadow-xl p-2 w-48 border border-neutral-700">
-              <div className="relative overflow-hidden rounded">
-                <motion.img 
-                  key={currentImageIndex}
-                  src={projectImages[currentImageIndex]} 
-                  alt={`${title} preview ${currentImageIndex + 1}`}
-                  className="w-full aspect-video object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
-                  {currentImageIndex + 1}/{projectImages.length}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
       </div>
       
       <div className="p-6 flex flex-col flex-grow bg-neutral-900 text-white">
@@ -154,7 +79,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <ExternalLink size={18} />
           </a>
         </div>
-        <p className="text-neutral-400 mb-4">{description}</p>
+        <p className="text-zinc-100 mb-4">{description}</p>
         <div className="flex flex-wrap mt-auto pt-4 gap-2">
           {tags.map((tag, index) => (
             <span 

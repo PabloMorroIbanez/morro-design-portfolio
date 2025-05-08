@@ -30,10 +30,10 @@ const MagneticDots = () => {
         container.removeChild(container.firstChild);
       }
       
-      // Calculate number of dots based on screen size
-      const dotCount = Math.floor((containerWidth * containerHeight) / 2000);
+      // Calculate number of dots based on screen size (increased density)
+      const dotCount = Math.floor((containerWidth * containerHeight) / 1500);
 
-      // Create dots
+      // Create dots with better distribution
       for (let i = 0; i < dotCount; i++) {
         const x = Math.random() * containerWidth;
         const y = Math.random() * containerHeight;
@@ -75,7 +75,7 @@ const MagneticDots = () => {
         const dx = mouseX - dot.originalX;
         const dy = mouseY - dot.originalY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const maxDistance = 100;
+        const maxDistance = 120; // Increased interaction radius
         
         if (distance < maxDistance) {
           // Calculate repulsion strength
@@ -83,8 +83,8 @@ const MagneticDots = () => {
           
           // Move dot away from cursor
           const angle = Math.atan2(dy, dx);
-          const tx = -Math.cos(angle) * force * 20;
-          const ty = -Math.sin(angle) * force * 20;
+          const tx = -Math.cos(angle) * force * 30; // Increased force
+          const ty = -Math.sin(angle) * force * 30; // Increased force
           
           dot.x = dot.originalX + tx;
           dot.y = dot.originalY + ty;
