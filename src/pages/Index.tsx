@@ -1,16 +1,15 @@
-
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
 import { staggerContainer, fadeIn } from "@/lib/animation-utils";
-import AnimatedCursor from "@/components/AnimatedCursor";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import ContactForm from "@/components/ContactForm";
+import MagneticDots from "@/components/MagneticDots";
 
 const Index = () => {
   const aboutSection = useRef(null);
@@ -92,65 +91,91 @@ const Index = () => {
 
   return (
     <div className="bg-zinc-900 text-white overflow-hidden">
-      <AnimatedCursor />
       <Navbar />
+      
+      {/* Home Section */}
       <motion.div
         variants={staggerContainer(0.3, 0.3)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
-        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-32 pt-40 md:pt-60 lg:pt-32"
+        className="relative z-0 mx-auto h-screen w-full max-w-7xl px-6 pb-20 pt-32"
         id="home"
       >
-        <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
-          <div
-            className="absolute left-[calc(50%-15rem)] top-1/2 h-[31.25rem] w-[31.25rem] -translate-y-1/2 rounded-full bg-gradient-to-tr from-blue-500 to-teal-500 opacity-30 blur-3xl"
-            aria-hidden="true"
-          />
-        </div>
-        <div className="relative z-10">
-          <div className="mb-8 flex items-center gap-6">
-            <h1 className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
-              Pablo Morro
-            </h1>
-            <span className="h-5 w-5 text-blue-300">✨</span>
-            <img 
-              src="/lovable-uploads/f1922c7d-2322-4d42-bf6f-bff02bed0446.png" 
-              alt="Profile" 
-              className="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
-            />
-          </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-lg text-zinc-400">
-              UX/UI Designer & Frontend Developer
-            </span>
-            <div className="flex flex-col gap-5">
-              <p className="max-w-lg text-xl text-zinc-400">
-                I'm a passionate designer and developer focused on creating
-                intuitive and engaging digital experiences.
-              </p>
+        <MagneticDots />
+        
+        <div className="relative z-10 h-full flex flex-col md:flex-row md:items-center">
+          {/* Content Column */}
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <div className="mb-8 flex items-center gap-6">
+              <h1 className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
+                Pablo Morro
+              </h1>
+              <span className="h-5 w-5 text-blue-300">✨</span>
             </div>
-            <div className="mt-5 flex items-center gap-5">
-              <Link
-                to="mailto:pablomorrodesign@gmail.com"
-                className="group relative h-12 w-48 overflow-hidden rounded-lg bg-blue-500 text-sm font-medium text-white"
-              >
-                <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-blue-600 transition-all duration-300 group-hover:translate-x-full">
-                  <ArrowUpRight className="h-5 w-5" />
+            <div className="flex flex-col gap-3">
+              <span className="text-lg text-zinc-400">
+                UX/UI Designer & Frontend Developer
+              </span>
+              <div className="flex flex-col gap-5">
+                <p className="max-w-lg text-xl text-zinc-400">
+                  I'm a passionate designer and developer focused on creating
+                  intuitive and engaging digital experiences.
+                </p>
+              </div>
+              <div className="mt-5 flex items-center gap-5">
+                <Link
+                  to="mailto:pablomorrodesign@gmail.com"
+                  className="group relative h-12 w-48 overflow-hidden rounded-lg bg-blue-500 text-sm font-medium text-white"
+                >
+                  <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-blue-600 transition-all duration-300 group-hover:translate-x-full">
+                    <ArrowUpRight className="h-5 w-5" />
+                  </div>
+                  <span className="relative w-full text-center transition-colors duration-300 group-hover:text-blue-600">
+                    Contact me
+                  </span>
+                </Link>
+              </div>
+              
+              {/* Dissolving text effect */}
+              <div className="mt-8">
+                <p className="dissolve-text text-2xl font-medium text-white hover:opacity-0 hover:transition-opacity duration-500">
+                  I design experiences you can feel.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Image Column with custom design */}
+          <div className="md:w-1/2 flex justify-center md:justify-end">
+            <div className="relative">
+              <div className="w-64 h-64 md:w-80 md:h-80 relative">
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-blue-500 rounded-tr-3xl rounded-bl-3xl z-0"></div>
+                <div className="absolute -bottom-4 -right-4 w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-tr-3xl rounded-bl-3xl z-0"></div>
+                
+                {/* Image container with custom shape */}
+                <div className="w-full h-full relative z-10 overflow-hidden rounded-tr-3xl rounded-bl-3xl border border-zinc-700">
+                  <img 
+                    src="/lovable-uploads/f1922c7d-2322-4d42-bf6f-bff02bed0446.png" 
+                    alt="Profile" 
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
-                <span className="relative w-full text-center transition-colors duration-300 group-hover:text-blue-600">
-                  Contact me
-                </span>
-              </Link>
-            </div>
-            
-            {/* Dissolving text effect */}
-            <div className="mt-8">
-              <p className="dissolve-text text-2xl font-medium text-white hover:opacity-0 hover:transition-opacity duration-500">
-                I design experiences you can feel.
-              </p>
+                
+                {/* Floating accent */}
+                <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-blue-500 rounded-full z-20 animate-float"></div>
+              </div>
             </div>
           </div>
+        </div>
+        
+        {/* Scroll text - positioned better */}
+        <div className="w-full text-center absolute bottom-8 left-0 right-0">
+          <p className="text-zinc-400 animate-bounce">Scroll to explore</p>
         </div>
       </motion.div>
 
