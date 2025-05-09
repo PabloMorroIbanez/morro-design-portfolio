@@ -1,4 +1,3 @@
-
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -31,6 +30,7 @@ const Index = () => {
   const aboutScale = useTransform(aboutProgress, [0, 1], [0.75, 1]);
   const experienceScale = useTransform(experienceProgress, [0, 1], [0.75, 1]);
 
+  // Updated projects with background and text colors
   const projects = [
     {
       title: "GreenCare",
@@ -38,7 +38,8 @@ const Index = () => {
       tags: ["UI/UX", "Mobile App", "Design"],
       imageUrl: "/lovable-uploads/07b3a8c6-a607-4c7c-8b6c-dff32c0bf56e.png",
       link: "/greencare",
-      featured: true,
+      bgColor: "#F2FCE2", // Light green background
+      textColor: "#222222", // Dark gray text
     },
     {
       title: "FinanceTracker",
@@ -46,6 +47,8 @@ const Index = () => {
       tags: ["Dashboard", "Web App", "UI/UX"],
       imageUrl: "/lovable-uploads/94e74263-1f79-4ff2-886c-c497f9e9aeb8.png",
       link: "#",
+      bgColor: "#D3E4FD", // Soft blue background
+      textColor: "#222222", // Dark gray text
     },
     {
       title: "TravelJournal",
@@ -53,6 +56,8 @@ const Index = () => {
       tags: ["Social", "Mobile App", "UI/UX"],
       imageUrl: "/lovable-uploads/23e884fd-6f19-40bd-b6da-13c13c2d2d9a.png",
       link: "#",
+      bgColor: "#FEF7CD", // Soft yellow background
+      textColor: "#222222", // Dark gray text
     },
     {
       title: "EcoShop",
@@ -60,6 +65,8 @@ const Index = () => {
       tags: ["E-commerce", "Web Design", "UI/UX"],
       imageUrl: "/lovable-uploads/70e6bc77-431b-47a7-b09a-7bd4ecde9d5b.png",
       link: "#",
+      bgColor: "#FDE1D3", // Soft peach background
+      textColor: "#222222", // Dark gray text
     }
   ];
 
@@ -85,7 +92,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="bg-zinc-900 text-zinc-200 overflow-hidden">
+    <div className="bg-zinc-900 text-zinc-100 overflow-hidden">
       <Navbar />
       
       {/* Home Section */}
@@ -109,11 +116,11 @@ const Index = () => {
               <span className="h-5 w-5 text-blue-300">✨</span>
             </div>
             <div className="flex flex-col gap-3">
-              <span className="text-lg text-zinc-400">
+              <span className="text-lg text-zinc-300">
                 UX/UI Designer & Frontend Developer
               </span>
               <div className="flex flex-col gap-5">
-                <p className="max-w-lg text-xl text-zinc-200">
+                <p className="max-w-lg text-xl text-zinc-100">
                   I'm a passionate designer and developer focused on creating
                   intuitive and engaging digital experiences.
                 </p>
@@ -168,7 +175,7 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Scroll text - positioned better */}
+        {/* Scroll text - only in home section */}
         <div className="w-full text-center absolute bottom-8 left-0 right-0">
           <p className="text-zinc-400 animate-bounce">Scroll to explore</p>
         </div>
@@ -191,15 +198,15 @@ const Index = () => {
           <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex flex-col gap-5">
               <h2 className="text-3xl font-bold mb-4">About me</h2>
-              <p className="text-xl text-zinc-200">
+              <p className="text-xl text-zinc-100">
                 I'm a UX/UI designer and frontend developer with a passion for
                 creating user-centered digital experiences.
               </p>
-              <p className="text-xl text-zinc-200">
+              <p className="text-xl text-zinc-100">
                 With over 6 years of experience in the industry, I've worked with clients
                 across various sectors including technology, healthcare, and e-commerce.
               </p>
-              <p className="text-xl text-zinc-200">
+              <p className="text-xl text-zinc-100">
                 I believe in creating designs that are not only visually appealing but
                 also functional and accessible to all users.
               </p>
@@ -215,12 +222,12 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Experience Section */}
+      {/* Experience Section - reduced bottom margin */}
       <motion.section
         id="experience"
         ref={experienceSection}
         style={{ scale: experienceScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16 mb-32"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16 mb-16"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -292,8 +299,6 @@ const Index = () => {
         ref={projectsSection}
         className="relative"
       >
-        {/* No header here anymore as requested */}
-        
         {/* Rockstar Scroll Reveal Effect for each project */}
         <div className="rockstar-scroll-container">
           {projects.map((project, index) => (
@@ -305,6 +310,8 @@ const Index = () => {
               imageUrl={project.imageUrl}
               link={project.link}
               index={index}
+              bgColor={project.bgColor}
+              textColor={project.textColor}
             />
           ))}
         </div>

@@ -20,12 +20,12 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // List of projects for dropdown
+  // Updated project list with all projects
   const projects: Project[] = [
     { title: "GreenCare", link: "/greencare" },
-    { title: "FinanceTracker", link: "#financetracker" },
-    { title: "TravelJournal", link: "#traveljournal" },
-    { title: "EcoShop", link: "#ecoshop" }
+    { title: "FinanceTracker", link: "#projects" }, // Links to projects section with an anchor
+    { title: "TravelJournal", link: "#projects" },
+    { title: "EcoShop", link: "#projects" }
   ];
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const Navbar = () => {
               <li key={link.id} className="relative">
                 {link.hasDropdown ? (
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="flex items-center gap-1 text-neutral-400 hover:text-blue-400 transition-colors focus:outline-none">
+                    <DropdownMenuTrigger className="flex items-center gap-1 text-zinc-200 hover:text-blue-400 transition-colors focus:outline-none">
                       {link.label}
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -98,12 +98,12 @@ const Navbar = () => {
                         <polyline points="6 9 12 15 18 9"></polyline>
                       </svg>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="center" className="bg-neutral-900 border-neutral-700">
+                    <DropdownMenuContent align="center" className="bg-neutral-800 border-neutral-700 text-zinc-200 z-[100]">
                       {projects.map((project) => (
-                        <DropdownMenuItem key={project.title} className="cursor-pointer">
+                        <DropdownMenuItem key={project.title} className="cursor-pointer hover:bg-neutral-700 focus:bg-neutral-700">
                           <Link 
                             to={project.link} 
-                            className="w-full text-neutral-400 hover:text-blue-400 transition-colors"
+                            className="w-full text-zinc-200 hover:text-blue-400 transition-colors"
                           >
                             {project.title}
                           </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
                   <a 
                     href={`#${link.id}`}
                     className={cn(
-                      "text-neutral-400 hover:text-blue-400 transition-colors nav-link",
+                      "text-zinc-200 hover:text-blue-400 transition-colors nav-link",
                       activeSection === link.id && "text-blue-400 font-medium active"
                     )}
                   >
@@ -124,7 +124,7 @@ const Navbar = () => {
                 ) : (
                   <Link 
                     to={link.path}
-                    className="text-neutral-400 hover:text-blue-400 transition-colors nav-link"
+                    className="text-zinc-200 hover:text-blue-400 transition-colors nav-link"
                   >
                     {link.label}
                   </Link>
@@ -146,10 +146,10 @@ const Navbar = () => {
         </button>
       </div>
       
-      {/* Mobile menu */}
+      {/* Mobile menu - updated with dropdown items */}
       {isMobileMenuOpen && (
         <motion.div 
-          className="md:hidden bg-neutral-900 border-t border-neutral-800"
+          className="md:hidden bg-neutral-800 border-t border-neutral-700"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
@@ -161,13 +161,13 @@ const Navbar = () => {
                 <li key={link.id}>
                   {link.hasDropdown ? (
                     <div className="py-2">
-                      <span className="text-neutral-400">{link.label}</span>
+                      <span className="text-zinc-200">{link.label}</span>
                       <ul className="pl-4 mt-2 space-y-2">
                         {projects.map((project) => (
                           <li key={project.title}>
                             <Link 
                               to={project.link} 
-                              className="block text-neutral-400 hover:text-blue-400 transition-colors"
+                              className="block text-zinc-300 hover:text-blue-400 transition-colors"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
                               {project.title}
@@ -180,7 +180,7 @@ const Navbar = () => {
                     <a 
                       href={`#${link.id}`}
                       className={cn(
-                        "block py-2 text-neutral-400 hover:text-blue-400 transition-colors",
+                        "block py-2 text-zinc-200 hover:text-blue-400 transition-colors",
                         activeSection === link.id && "text-blue-400 font-medium"
                       )}
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -190,7 +190,7 @@ const Navbar = () => {
                   ) : (
                     <Link 
                       to={link.path}
-                      className="block py-2 text-neutral-400 hover:text-blue-400 transition-colors"
+                      className="block py-2 text-zinc-200 hover:text-blue-400 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}
