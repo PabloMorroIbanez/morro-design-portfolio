@@ -1,3 +1,4 @@
+
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -7,9 +8,9 @@ import { staggerContainer, fadeIn } from "@/lib/animation-utils";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProjectCard from "@/components/ProjectCard";
 import ContactForm from "@/components/ContactForm";
 import MagneticDots from "@/components/MagneticDots";
+import RockstarScrollReveal from "@/components/RockstarScrollReveal";
 
 const Index = () => {
   const aboutSection = useRef(null);
@@ -22,18 +23,12 @@ const Index = () => {
     offset: ["start end", "end end"],
   });
 
-  const { scrollYProgress: projectsProgress } = useScroll({
-    target: projectsSection,
-    offset: ["start end", "end end"],
-  });
-
   const { scrollYProgress: experienceProgress } = useScroll({
     target: experienceSection,
     offset: ["start end", "end end"],
   });
 
   const aboutScale = useTransform(aboutProgress, [0, 1], [0.75, 1]);
-  const projectsScale = useTransform(projectsProgress, [0, 1], [0.75, 1]);
   const experienceScale = useTransform(experienceProgress, [0, 1], [0.75, 1]);
 
   const projects = [
@@ -118,7 +113,7 @@ const Index = () => {
                 UX/UI Designer & Frontend Developer
               </span>
               <div className="flex flex-col gap-5">
-                <p className="max-w-lg text-xl text-zinc-400">
+                <p className="max-w-lg text-xl text-zinc-100">
                   I'm a passionate designer and developer focused on creating
                   intuitive and engaging digital experiences.
                 </p>
@@ -291,36 +286,31 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Projects Section */}
-      <motion.section
+      {/* Projects Section - Rockstar Style Scroll Reveal */}
+      <section
         id="projects"
         ref={projectsSection}
-        style={{ scale: projectsScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
+        className="relative"
       >
-        <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
-          <div
-            className="absolute left-[calc(50%-15rem)] top-1/2 h-[31.25rem] w-[31.25rem] -translate-y-1/2 rounded-full bg-gradient-to-tr from-blue-500 to-teal-500 opacity-30 blur-3xl"
-            aria-hidden="true"
-          />
+        <div className="py-16 px-6 max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">Projects</h2>
         </div>
-        <div className="relative z-10">
-          <h2 className="text-3xl font-bold mb-12">Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                description={project.description}
-                tags={project.tags}
-                imageUrl={project.imageUrl}
-                link={project.link}
-                featured={project.featured}
-              />
-            ))}
-          </div>
+        
+        {/* Rockstar Scroll Reveal Effect for each project */}
+        <div className="rockstar-scroll-container">
+          {projects.map((project, index) => (
+            <RockstarScrollReveal
+              key={index}
+              projectName={project.title}
+              description={project.description}
+              tags={project.tags}
+              imageUrl={project.imageUrl}
+              link={project.link}
+              index={index}
+            />
+          ))}
         </div>
-      </motion.section>
+      </section>
 
       {/* Contact Section */}
       <section
@@ -337,7 +327,7 @@ const Index = () => {
         <div className="relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-3xl font-bold mb-4">Let's Connect</h2>
-            <p className="text-zinc-400">
+            <p className="text-zinc-100">
               Feel free to reach out for collaborations, opportunities or just a friendly chat.
             </p>
           </div>

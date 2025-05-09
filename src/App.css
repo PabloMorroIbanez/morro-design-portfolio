@@ -78,3 +78,52 @@
 .dot:nth-child(3n) {
   animation: pulse-dot 4s infinite ease-in-out;
 }
+
+/* Rockstar scroll reveal styles */
+.rockstar-scroll-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.mix-blend-difference {
+  mix-blend-mode: difference;
+}
+
+/* Smooth scrolling for the effect */
+html.rockstar-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Text reveal animation */
+@keyframes text-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.text-reveal {
+  animation: text-reveal 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Scale animation for text */
+@keyframes scale-down {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.3);
+  }
+}
+
+/* Background transition animation */
+@keyframes bg-fade {
+  from {
+    background-color: black;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}

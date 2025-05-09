@@ -45,10 +45,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <img 
           src={imageUrl} 
           alt={title} 
-          className={cn(
-            "w-full h-full object-cover transition-all duration-500",
-            isHovering ? "scale-105 brightness-[0.85]" : "scale-100"
-          )}
+          className="w-full h-full object-cover"
         />
         
         <div className={cn(
