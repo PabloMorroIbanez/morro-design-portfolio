@@ -3,11 +3,30 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { 
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem
+} from "@/components/ui/dropdown-menu";
+
+interface Project {
+  title: string;
+  link: string;
+}
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // List of projects for dropdown
+  const projects: Project[] = [
+    { title: "GreenCare", link: "/greencare" },
+    { title: "FinanceTracker", link: "#financetracker" },
+    { title: "TravelJournal", link: "#traveljournal" },
+    { title: "EcoShop", link: "#ecoshop" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +60,8 @@ const Navbar = () => {
     { id: "home", label: "Home", path: "/" },
     { id: "about", label: "About", path: "/" },
     { id: "experience", label: "Experience", path: "/" },
-    { id: "projects", label: "Projects", path: "/" },
-    { id: "contact", label: "Contact", path: "/" },
-    { id: "gamification", label: "Gamification", path: "/gamification" }
+    { id: "projects", label: "Projects", path: "/", hasDropdown: true },
+    { id: "contact", label: "Contact", path: "/" }
   ];
 
   return (
@@ -61,8 +79,39 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <ul className="flex space-x-8">
             {navLinks.map((link) => (
-              <li key={link.id}>
-                {link.path === "/" && link.id !== "gamification" ? (
+              <li key={link.id} className="relative">
+                {link.hasDropdown ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex items-center gap-1 text-neutral-400 hover:text-blue-400 transition-colors focus:outline-none">
+                      {link.label}
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="16" 
+                        height="16" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="center" className="bg-neutral-900 border-neutral-700">
+                      {projects.map((project) => (
+                        <DropdownMenuItem key={project.title} className="cursor-pointer">
+                          <Link 
+                            to={project.link} 
+                            className="w-full text-neutral-400 hover:text-blue-400 transition-colors"
+                          >
+                            {project.title}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : link.path === "/" ? (
                   <a 
                     href={`#${link.id}`}
                     className={cn(
@@ -110,7 +159,24 @@ const Navbar = () => {
             <ul className="space-y-4">
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  {link.path === "/" && link.id !== "gamification" ? (
+                  {link.hasDropdown ? (
+                    <div className="py-2">
+                      <span className="text-neutral-400">{link.label}</span>
+                      <ul className="pl-4 mt-2 space-y-2">
+                        {projects.map((project) => (
+                          <li key={project.title}>
+                            <Link 
+                              to={project.link} 
+                              className="block text-neutral-400 hover:text-blue-400 transition-colors"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {project.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : link.path === "/" ? (
                     <a 
                       href={`#${link.id}`}
                       className={cn(

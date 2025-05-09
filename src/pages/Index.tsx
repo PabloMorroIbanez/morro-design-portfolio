@@ -85,7 +85,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="bg-zinc-900 text-zinc-100 overflow-hidden">
+    <div className="bg-zinc-900 text-zinc-200 overflow-hidden">
       <Navbar />
       
       {/* Home Section */}
@@ -113,7 +113,7 @@ const Index = () => {
                 UX/UI Designer & Frontend Developer
               </span>
               <div className="flex flex-col gap-5">
-                <p className="max-w-lg text-xl text-zinc-100">
+                <p className="max-w-lg text-xl text-zinc-200">
                   I'm a passionate designer and developer focused on creating
                   intuitive and engaging digital experiences.
                 </p>
@@ -191,15 +191,15 @@ const Index = () => {
           <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
             <div className="flex flex-col gap-5">
               <h2 className="text-3xl font-bold mb-4">About me</h2>
-              <p className="text-xl text-zinc-100">
+              <p className="text-xl text-zinc-200">
                 I'm a UX/UI designer and frontend developer with a passion for
                 creating user-centered digital experiences.
               </p>
-              <p className="text-xl text-zinc-100">
+              <p className="text-xl text-zinc-200">
                 With over 6 years of experience in the industry, I've worked with clients
                 across various sectors including technology, healthcare, and e-commerce.
               </p>
-              <p className="text-xl text-zinc-100">
+              <p className="text-xl text-zinc-200">
                 I believe in creating designs that are not only visually appealing but
                 also functional and accessible to all users.
               </p>
@@ -220,7 +220,7 @@ const Index = () => {
         id="experience"
         ref={experienceSection}
         style={{ scale: experienceScale }}
-        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16"
+        className="relative z-0 mx-auto min-h-screen w-full max-w-7xl px-6 py-16 mb-32"
       >
         <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -246,7 +246,7 @@ const Index = () => {
                     <span>{exp.company}</span>
                     <span>{exp.duration}</span>
                   </div>
-                  <p className="text-zinc-100">{exp.description}</p>
+                  <p className="text-zinc-200">{exp.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -261,7 +261,7 @@ const Index = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <h4 className="font-medium text-blue-400">Design</h4>
-                    <ul className="space-y-1 text-zinc-100">
+                    <ul className="space-y-1 text-zinc-200">
                       <li>UI/UX Design</li>
                       <li>Wireframing</li>
                       <li>Prototyping</li>
@@ -271,7 +271,7 @@ const Index = () => {
                   </div>
                   <div className="space-y-2">
                     <h4 className="font-medium text-blue-400">Development</h4>
-                    <ul className="space-y-1 text-zinc-100">
+                    <ul className="space-y-1 text-zinc-200">
                       <li>HTML/CSS</li>
                       <li>JavaScript/React</li>
                       <li>TypeScript</li>
@@ -292,9 +292,7 @@ const Index = () => {
         ref={projectsSection}
         className="relative"
       >
-        <div className="py-16 px-6 max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8">Projects</h2>
-        </div>
+        {/* No header here anymore as requested */}
         
         {/* Rockstar Scroll Reveal Effect for each project */}
         <div className="rockstar-scroll-container">
@@ -327,7 +325,7 @@ const Index = () => {
         <div className="relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-3xl font-bold mb-4">Let's Connect</h2>
-            <p className="text-zinc-100">
+            <p className="text-zinc-200">
               Feel free to reach out for collaborations, opportunities or just a friendly chat.
             </p>
           </div>
