@@ -49,7 +49,8 @@ const RockstarScrollReveal: React.FC<RockstarScrollRevealProps> = ({
       ref={sectionRef} 
       className={cn(
         "sticky top-0 min-h-[110vh] w-full overflow-hidden",
-        index > 0 ? "mt-[40vh]" : "mt-[10vh]" // Reduced spacing between sections
+        // Removed margin-top spacing between sections
+        index > 0 ? "mt-0" : "mt-0"
       )}
     >
       {/* Background color overlay with project-specific color */}
